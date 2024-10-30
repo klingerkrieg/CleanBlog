@@ -1,4 +1,4 @@
-@extends('layout.template')
+@extends('layouts.template')
 
 @section('content')
 <header class="masthead" style="background-image: url('{{ asset('clean-blog/assets/img/about-bg.jpg')}}')">
