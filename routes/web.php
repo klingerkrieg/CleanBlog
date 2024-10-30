@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\HomePageController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomePageController::class,"index"])->name('home');
+
+Route::get('/about',    [HomePageController::class,"about"])->name('about');
+Route::get('/contact',  [ContactController::class,"index"])->name('contact');
+Route::get('/post',     [PostController::class,"index"])->name('post');
