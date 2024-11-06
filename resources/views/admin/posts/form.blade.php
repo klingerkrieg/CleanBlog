@@ -11,13 +11,19 @@
 
                         @if ($data->id)
 
-                            <form method="POST" action="{{ route('post.update', $data) }}">
+                            <form method="POST" 
+                                id="main"
+                                action="{{ route('post.update', $data) }}" 
+                                enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
                         @else
 
-                            <form method="POST" action="{{ route('post.store') }}">
+                            <form method="POST" 
+                                id="main"
+                                action="{{ route('post.store') }}" 
+                                enctype="multipart/form-data">
                             @csrf
 
                         @endif
@@ -29,7 +35,7 @@
                             <div class="col-md-6">
                                 <input id="subject" type="text" 
                                         class="form-control @error('subject') is-invalid @enderror" 
-                                        name="subject" value="{{ old('subject', $data->subject) }}" required autofocus>
+                                        name="subject" value="{{ old('subject', $data->subject) }}" autofocus>
 
                                 @error('subject')
                                     <span class="invalid-feedback" role="alert">
@@ -54,6 +60,12 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+
+
+                                @if ($data->id)
+                                    <img src="{{asset($data->image)}}" class="rounded" width='200'/>
+                                @endif
+
                             </div>
                         </div>
 
@@ -81,7 +93,7 @@
                                 {{ __('Slug') }}</label>
 
                             <div class="col-md-6">
-                                <input id="slug" type="date" 
+                                <input id="slug" type="text" 
                                     class="form-control" 
                                     value="{{ $data->slug }}" disabled>
                             </div>
@@ -103,17 +115,35 @@
                                 @enderror
                             </div>
                         </div>
+                    </form>
 
-
+                    
 
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary" form="main">
                                     {{ __('Save') }}
                                 </button>
+
+                                <a class="btn btn-secondary" href='{{route("post.create")}}'>
+                                    {{ __('New Post') }}
+                                </a>
+
+                                @if ($data->id != "")
+                                <form name='delete' action="{{route('post.destroy',$data)}}"
+                                    method="post"
+                                    style='display: inline-block;'>
+                                    @csrf
+                                    @method("DELETE")
+                                    <button type="button" onclick="confirmDeleteModal(this)" class="btn btn-danger">
+                                        {{ __('Delete') }}
+                                    </button>
+                                </form>
+                                @endif
+
+
                             </div>
                         </div>
-                    </form>
                 </div>
             </div>
         </div>

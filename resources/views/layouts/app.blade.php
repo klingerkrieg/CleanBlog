@@ -15,6 +15,10 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    
+    <script src="{{ asset('bootstrap.bundle.min.js') }}" defer></script>
+    <script src="{{ asset('main.js') }}"></script>
 </head>
 <body>
     <div id="app">
@@ -76,7 +80,36 @@
         </nav>
 
         <main class="py-4">
+
+
+        @if (session('success'))
+        <div class="container"><div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="alert alert-success" role="alert">
+                        {{session('success')}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+
+
             @yield('content')
+
+
+            @include('layouts.modal-deletar')
         </main>
     </div>
 </body>

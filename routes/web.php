@@ -27,6 +27,8 @@ Auth::routes();
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 
 
+Route::get('/{post:slug}',[App\Http\Controllers\PostController::class,"get"])->name('post.open');
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/post/list', [PostController::class,"list"])->name('post.list');
     Route::get('/post/form', [PostController::class,"create"])->name('post.create');
