@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 
 class PostController extends Controller {
@@ -25,7 +27,8 @@ class PostController extends Controller {
     }
     
     public function create(){
-        return view("admin.posts.form", ["data"=>new Post()]);
+        $users = User::all();
+        return view("admin.posts.form", data: ["data"=>new Post(), "users"=>$users]);
     }
 
     public function store(Request $request){
@@ -34,6 +37,14 @@ class PostController extends Controller {
         #Salva a imagem na pasta
         $data = $this->armazenaImagem($request);
         $validated['image'] = $data['image'];
+
+        
+        #Pega a id do usuario que está logado
+        #se eu quisesse que o dono sempre fosse o usuario que está
+        #logado cadastrando a postagem
+        #mas no caso, eu deixei funcionando o exemplo de forma que
+        #o usuário pode ser escolhido por quem está cadastrando
+        //$validated["user_id"] = Auth::user()->id;
 
         $obj = Post::create($validated);
         return redirect(route('post.edit', $obj))->with("success","Data saved!");
@@ -46,7 +57,8 @@ class PostController extends Controller {
 
     #abre o formulario de edição
     public function edit(Post $post){
-        return view("admin.posts.form",["data"=>$post]);
+        $users = User::all();
+        return view("admin.posts.form",["data"=>$post, "users"=>$users]);
     }
 
     #salva as edições
@@ -55,7 +67,8 @@ class PostController extends Controller {
         
         #Salva a imagem na pasta
         $data = $this->armazenaImagem($request);
-        $validated['image'] = $data['image'];
+        if (isset($data['image']))
+            $validated['image'] = $data['image'];
         
         $post->update($validated);
         return redirect()->back()->with("success","Data updated!");
@@ -78,6 +91,7 @@ class PostController extends Controller {
             'subject' => 'required|max:250',
             'publish_date' => 'nullable|date',
             'text' => 'max:8000',
+            'user_id' => 'exists:users,id'
         ];
     
         #somente obrigatório quando for um novo

@@ -1,4 +1,4 @@
-import 'bootstrap';
+//import 'bootstrap'; //<--- comentei isso para que ele nao importe o bootstrap pela metade e pare de dar problema no menu/logout
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

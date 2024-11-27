@@ -28,6 +28,47 @@
 
                         @endif
 
+                        {{--@if ($data->id != "")            
+                        <div class="row mb-3">
+                            <label class="col-md-4 col-form-label text-md-end">
+                                {{ __('Owner') }}</label>
+                            
+                                <div class="col-md-6">
+                                    <input  class="form-control"
+                        value="{{ $data->user->name }}"
+                                    disabled>
+                                </div>
+                        </div>
+                        @endif--}}
+
+                        <div class="row mb-3">
+                            <label for="user_id" class="col-md-4 col-form-label text-md-end">
+                                {{ __('Dono escolhível') }}</label>
+                            
+                                <div class="col-md-6">
+                                    <select name="user_id" class="form-select @error('user_id') is-invalid @enderror">
+                                        <option></option>
+                                        @foreach ($users as $user)
+                                            @if ($user->id == $data->user?->id)
+                                                <option value="{{$user->id}}" selected>{{$user->name}}</option>
+                                            @else
+                                                <option value="{{$user->id}}">{{$user->name}}</option>
+                                            @endif
+                                            
+                                        @endforeach
+                                    </select>
+
+                                    @error('user_id')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                        </div>
+
+
+
+
                         <div class="row mb-3">
                             <label for="subject" class="col-md-4 col-form-label text-md-end">
                                     {{ __('Subject') }}</label>

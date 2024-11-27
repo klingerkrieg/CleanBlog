@@ -13,18 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('category_posts', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("post_id")->constrained();
+            $table->foreignId("category_id")->constrained();
             $table->timestamps();
-            $table->string("subject",250);
-            $table->date("publish_date")->nullable();
-            $table->string("image",500)->nullable();
-            $table->string("slug",250)->nullable();
-            $table->text("text")->nullable();
-            $table->foreignId("user_id")->constrained();//<---
-            $table->softDeletes();
         });
-        
     }
 
     /**
@@ -34,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('category_posts');
     }
 };

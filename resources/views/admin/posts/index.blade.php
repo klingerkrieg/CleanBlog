@@ -52,6 +52,7 @@
                             <th scope="col">Assunto</th>
                             <th scope="col">Data de publicação</th>
                             <th scope="col">Slug</th>
+                            <th scope="col">Dono</th>
                             <th scope="col">Deletar</th>
                             </tr>
                         </thead>
@@ -66,6 +67,7 @@
                                 <td>{{$item->subject}}</td>
                                 <td>{{$item->publish_date}}</td>
                                 <td>{{$item->slug}}</td>
+                                <td>{{$item->user->name}}</td>
                                 <td>
                                     <form style="display: inline-block;" action="{{route('post.destroy',$item)}}" method="post">
                                         @csrf

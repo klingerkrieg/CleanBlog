@@ -14,12 +14,17 @@ class Post extends Model {
         "image",
         "subject",
         "text",
-        "slug"
+        "slug",
+        "user_id" //<--- 
     ];
 
     protected $dates = [
         "publish_date"
     ];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 
 
     public function setSubjectAttribute($subject){

@@ -12,13 +12,14 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
+    
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
-    
     <script src="{{ asset('bootstrap.bundle.min.js') }}" defer></script>
-    <script src="{{ asset('main.js') }}"></script>
+    <script src="{{ asset('main.js') }}" ></script>
+
+    
 </head>
 <body>
     <div id="app">
@@ -55,6 +56,12 @@
                         @else
                             <li class='nav-item'>
                                 <a class="nav-link" href="{{route('post.list')}}">Posts</a>
+                            </li>
+                            <li class='nav-item'>
+                                <a class="nav-link" href="{{route(name: 'user.list')}}">Users</a>
+                            </li>
+                            <li class='nav-item'>
+                                <a class="nav-link" href="{{route(name: 'category.list')}}">Categories</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
