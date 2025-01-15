@@ -162,15 +162,19 @@
 
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">
+                                @can('update', $data)
                                 <button type="submit" class="btn btn-primary" form="main">
                                     {{ __('Save') }}
                                 </button>
+                                @endcan
 
+                                @can('create', App\Models\Post::class)
                                 <a class="btn btn-secondary" href='{{route("post.create")}}'>
                                     {{ __('New Post') }}
                                 </a>
+                                @endcan
 
-                                @if ($data->id != "")
+                                @can('delete', $data)
                                 <form name='delete' action="{{route('post.destroy',$data)}}"
                                     method="post"
                                     style='display: inline-block;'>
@@ -180,7 +184,7 @@
                                         {{ __('Delete') }}
                                     </button>
                                 </form>
-                                @endif
+                                @endcan
 
 
                             </div>

@@ -7,10 +7,12 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Validator;
 
 class PostController extends Controller {
     public function list(Request $request){
+
         $pagination = Post::orderBy("subject");
 
         if (isset($request->subject) && $request->subject != "")

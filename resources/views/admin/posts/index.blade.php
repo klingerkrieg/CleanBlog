@@ -39,7 +39,9 @@
                                     {{ __('Search') }}
                                 </button>
 
-                                <a href="{{route('post.create')}}" class='btn btn-secondary'>{{ __('New Post') }}</a>
+                                @can('create', App\Models\Post::class)
+                                    <a href="{{route('post.create')}}" class='btn btn-secondary'>{{ __('New Post') }}</a>
+                                @endcan
                             </div>
                         </div>
 
@@ -69,6 +71,7 @@
                                 <td>{{$item->slug}}</td>
                                 <td>{{$item->user->name}}</td>
                                 <td>
+                                    @can('delete', $item)
                                     <form style="display: inline-block;" action="{{route('post.destroy',$item)}}" method="post">
                                         @csrf
                                         @method("DELETE")
@@ -77,6 +80,7 @@
                                             {{ __('Delete') }}
                                         </button>
                                     </form>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach

@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'level',
     ];
 
     public function posts(){
@@ -46,4 +47,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+
+    const ADMIN_LEVEL = 30;
+    const AUTHOR_LEVEL = 20;
+    const DEFAULT_LEVEL = 0;
+
+    public function isAdministrator(){
+        return $this->level == User::ADMIN_LEVEL;
+    }
+    
 }
